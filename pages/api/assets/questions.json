@@ -1,0 +1,57 @@
+[
+	{
+		"id": 1,
+		"question": "What is the capital of India?",
+		"answer": "New Delhi"
+	},
+	{
+		"id": 2,
+		"question": "What is the capital of Pakistan?",
+		"answer": "Islamabad"
+	},
+	{
+		"id": 3,
+		"question": "What is the capital of China?",
+		"answer": "Beijing"
+	},
+	{
+		"id": 4,
+		"question": "What is the capital of Russia?",
+		"answer": "Moscow"
+	},
+	{
+		"id": 5,
+		"question": "What is the capital of Brazil?",
+		"answer": "Brasilia"
+	},
+	{
+		"id": 6,
+		"question": "What is the capital of Australia?",
+		"answer": "Canberra"
+	},
+	{
+		"id": 7,
+		"question": "What is the capital of Canada?",
+		"answer": "Ottawa"
+	},
+	{
+		"id": 8,
+		"question": "What is the capital of France?",
+		"answer": "Paris"
+	},
+	{
+		"id": 9,
+		"question": "What is the capital of Germany?",
+		"answer": "Berlin"
+	},
+	{
+		"id": 10,
+		"question": "What is the capital of Italy?",
+		"answer": "Rome"
+	},
+	{
+		"id": 11,
+		"question": "What is the capital of Japan?",
+		"answer": "Tokyo"
+	}
+]
