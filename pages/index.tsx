@@ -89,7 +89,7 @@ const Home: NextPage<{ data: IQuestion[] }> = ({ data }) => {
 
 export const getStaticProps = async () => {
 	const host = 'development' !== process.env.NODE_ENV
-		? ''
+		? 'https://faq-bot.vercel.app'
 		: 'http://localhost:3000'
 
 	if (!host) return {
