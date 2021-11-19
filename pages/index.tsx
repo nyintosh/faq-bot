@@ -4,6 +4,12 @@ import { AiOutlineReload, AiOutlineRobot } from 'react-icons/ai'
 
 import styles from 'styles/Home.module.scss'
 
+interface IQuestion {
+	id: number,
+	question: string,
+	answer: string,
+}
+
 const Home: NextPage<{ data: IQuestion[] }> = ({ data }) => {
 	const faqRef = useRef<HTMLDivElement>(null)
 	const tabRef = useRef<HTMLDivElement>(null)
@@ -85,6 +91,12 @@ export const getStaticProps = async () => {
 	const host = 'development' !== process.env.NODE_ENV
 		? ''
 		: 'http://localhost:3000'
+
+	if (!host) return {
+		props: {
+			data: [],
+		},
+	}
 
 	const resp = await fetch(`${host}/api`)
 	const data: IQuestion[] = await resp.json()
