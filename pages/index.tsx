@@ -1,14 +1,10 @@
-import { NextPage } from 'next'
+import { IQuestion } from 'interfaces/IQuestion'
+import { GetServerSideProps, NextPage } from 'next'
+import Head from 'next/head'
 import { useEffect, useRef, useState } from 'react'
 import { AiOutlineReload, AiOutlineRobot } from 'react-icons/ai'
 
 import styles from 'styles/Home.module.scss'
-
-interface IQuestion {
-	id: number,
-	question: string,
-	answer: string,
-}
 
 const Home: NextPage<{ data: IQuestion[] }> = ({ data }) => {
 	const faqRef = useRef<HTMLDivElement>(null)
@@ -32,65 +28,66 @@ const Home: NextPage<{ data: IQuestion[] }> = ({ data }) => {
 		el.classList.add(`${!client && styles.bot}`)
 
 		faqRef.current.appendChild(el)
-		faqRef.current.scrollTo(
-			0,
-			faqRef.current.scrollHeight,
-		)
+		faqRef.current.scrollTo(0, faqRef.current.scrollHeight)
 	}
 
-	const startChats = (id: number) => {
-		const current = data.find((v) => id === v.id)
+	const startChats = (idx: number) => {
+		const current = data.find((v) => idx === v.idx)
 		if (!current) return
 
-		addMessage(current.question, true)
+		addMessage(current.Que, true)
 		setChatActive(false)
 
 		setTimeout(() => {
-			addMessage(current.answer, false)
+			addMessage(current.Ans, false)
 			setChatActive(true)
 		}, 5e2)
 	}
 
 	return (
-		<section className={styles.wrapper}>
-			<div className={styles.container}>
-				<div className={styles.chat_box}>
-					<div className={styles.chat_box__header_title}>
-						<div>
-							<span className={styles.icon}><AiOutlineRobot /></span>
-							<span>FAQ bot</span>
+		<>
+			<Head>
+				<title>FAQ bot</title>
+			</Head>
+			<section className={styles.wrapper}>
+				<div className={styles.container}>
+					<div className={styles.chat_box}>
+						<div className={styles.chat_box__header_title}>
+							<div>
+								<span className={styles.icon}><AiOutlineRobot /></span>
+								<span>FAQ bot</span>
+							</div>
+							<div onClick={() => window.location.reload()} className={styles.icon}>
+								<AiOutlineReload />
+							</div>
 						</div>
-						<div onClick={() => window.location.reload()} className={styles.icon}>
-							<AiOutlineReload />
+						<div className={styles.chat_box__conversation} ref={faqRef}>
+							<div className={styles.intro}>
+								<p>Pick a question to start a conversation . .</p>
+							</div>
 						</div>
-					</div>
-					<div className={styles.chat_box__conversation} ref={faqRef}>
-						<div className={styles.intro}>
-							<p>Pick a question to start a conversation . .</p>
+						<div className={styles.chat_box__question_tab} ref={tabRef}>
+							{data.map((v) => (
+								<button
+									key={v.idx}
+									onClick={() => IsChatActive && startChats(v.idx)}
+									disabled={!IsChatActive}
+								>
+									{v.Que}
+								</button>
+							))}
+							<span />
 						</div>
-					</div>
-					<div className={styles.chat_box__question_tab} ref={tabRef}>
-						{data.map((v) => (
-							<button
-								key={v.id}
-								onClick={() => IsChatActive && startChats(v.id)}
-								disabled={!IsChatActive}
-							>
-								{v.question}
-							</button>
-						))}
-						<span />
 					</div>
 				</div>
-			</div>
-		</section>
+			</section>
+		</>
 	)
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
 	const host = 'development' !== process.env.NODE_ENV
-		? 'https://faq-bot.vercel.app'
-		: 'http://localhost:3000'
+		? 'https://faq-bot.vercel.app' : 'http://localhost:3000'
 
 	if (!host) return {
 		props: {

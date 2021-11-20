@@ -79,7 +79,18 @@
 
 	> div {
 		margin-top : 5px;
+		padding    : 0 0 0 10%;
 		text-align : right;
+
+		a {
+			font-weight     : 600;
+			text-decoration : none;
+			color           : dodgerblue;
+
+			&:hover {
+				text-decoration : underline;
+			}
+		}
 	}
 }
 
@@ -92,9 +103,12 @@
 	height          : 30px;
 	margin-top      : 0 !important;
 	margin-bottom   : 20px;
+	padding         : 0 !important;
 }
 
 .bot {
+	padding : 0 10% 0 0 !important;
+
 	> p {
 		width            : fit-content;
 		padding          : 2.5px 10px;
