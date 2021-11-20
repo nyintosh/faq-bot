@@ -1,13 +1,14 @@
 import * as fs from 'fs'
 import { IQuestion } from 'interfaces/IQuestion'
 import { NextApiRequest, NextApiResponse } from 'next'
+import path from 'path'
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	try {
-		const path = 'development' !== process.env.NODE_ENV
-			? 'data/questions.txt' : 'public/data/questions.txt'
+		const dataDir = path.join(process.cwd(), 'data')
+		const file = path.join(dataDir, 'questions.txt')
 
-		const data: IQuestion[] = JSON.parse(fs.readFileSync(path, 'utf8'))
+		const data: IQuestion[] = JSON.parse(fs.readFileSync(file, 'utf8'))
 		const body: IQuestion = req.body
 
 		switch (req.method) {
@@ -30,7 +31,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 				const newQuestion: IQuestion = { ...body, idx: new Date().getTime() }
 				data.push(newQuestion)
 
-				fs.writeFileSync(path, JSON.stringify(data))
+				fs.writeFileSync(file, JSON.stringify(data))
 				return res.status(201).json(newQuestion)
 			}
 
@@ -49,7 +50,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 				const updatedQuestion = { ...question, ...req.body }
 				data[data.indexOf(question)] = updatedQuestion
 
-				fs.writeFileSync(path, JSON.stringify(data))
+				fs.writeFileSync(file, JSON.stringify(data))
 				return res.status(200).json(updatedQuestion)
 			}
 
@@ -63,19 +64,19 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 
 				data.splice(data.indexOf(question), 1)
 
-				fs.writeFileSync(path, JSON.stringify(data))
+				fs.writeFileSync(file, JSON.stringify(data))
 				return res.status(200).json(question)
 			}
 
 			case 'COPY': {
 				const questions = req.body
-				fs.writeFileSync(path, JSON.stringify(questions))
+				fs.writeFileSync(file, JSON.stringify(questions))
 				return res.status(201).json(questions)
 			}
 
 			case 'PURGE': {
 				data.splice(0, data.length)
-				fs.writeFileSync(path, JSON.stringify(data))
+				fs.writeFileSync(file, JSON.stringify(data))
 				return res.status(204).send('')
 			}
 		}
