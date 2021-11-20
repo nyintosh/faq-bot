@@ -95,7 +95,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 		},
 	}
 
-	const resp = await fetch(`${host}/api`)
+	const resp = await fetch(`http://localhost:3000/api`)
 	const data: IQuestion[] = await resp.json()
 
 	return {
