@@ -1,0 +1,52 @@
+[
+    {
+        "Que": "What is the capital of Myanmar?",
+        "Ans": "NayPyiTaw",
+        "idx": 1
+    },
+    {
+        "Que": "What is the capital of Russia?",
+        "Ans": "Moscow",
+        "idx": 2
+    },
+    {
+        "Que": "What is the capital of Brazil?",
+        "Ans": "Brasilia",
+        "idx": 3
+    },
+    {
+        "Que": "What is the capital of Australia?",
+        "Ans": "Canberra",
+        "idx": 4
+    },
+    {
+        "Que": "What is the capital of Canada?",
+        "Ans": "Ottawa",
+        "idx": 5
+    },
+    {
+        "Que": "What is the capital of France?",
+        "Ans": "Paris",
+        "idx": 6
+    },
+    {
+        "Que": "What is the capital of Germany?",
+        "Ans": "Berlin",
+        "idx": 7
+    },
+    {
+        "Que": "What is the capital of Italy?",
+        "Ans": "Rome",
+        "idx": 8
+    },
+    {
+        "Que": "What is the capital of Japan?",
+        "Ans": "Tokyo",
+        "idx": 9
+    },
+    {
+        "Que": "Who is the developer of this app?",
+        "Ans": "<a href='https://github.com/nyintosh' target='_blank'>Nyi Nyi Htun</a>",
+        "idx": 0
+    }
+]

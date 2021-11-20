@@ -6,7 +6,7 @@ import path from 'path'
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const dataDir = path.join(process.cwd(), 'data')
-		const file = path.join(dataDir, 'questions.txt')
+		const file = path.join(dataDir, 'questions.json')
 
 		const data: IQuestion[] = JSON.parse(fs.readFileSync(file, 'utf8'))
 		const body: IQuestion = req.body
@@ -31,7 +31,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 				const newQuestion: IQuestion = { ...body, idx: new Date().getTime() }
 				data.push(newQuestion)
 
-				fs.writeFileSync(file, JSON.stringify(data))
+				fs.writeFileSync(file, JSON.stringify(data, null, 4))
 				return res.status(201).json(newQuestion)
 			}
 
@@ -50,7 +50,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 				const updatedQuestion = { ...question, ...req.body }
 				data[data.indexOf(question)] = updatedQuestion
 
-				fs.writeFileSync(file, JSON.stringify(data))
+				fs.writeFileSync(file, JSON.stringify(data, null, 4))
 				return res.status(200).json(updatedQuestion)
 			}
 
@@ -64,19 +64,18 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
 
 				data.splice(data.indexOf(question), 1)
 
-				fs.writeFileSync(file, JSON.stringify(data))
+				fs.writeFileSync(file, JSON.stringify(data, null, 4))
 				return res.status(200).json(question)
 			}
 
 			case 'COPY': {
 				const questions = req.body
-				fs.writeFileSync(file, JSON.stringify(questions))
+				fs.writeFileSync(file, JSON.stringify(questions, null, 4))
 				return res.status(201).json(questions)
 			}
 
 			case 'PURGE': {
-				data.splice(0, data.length)
-				fs.writeFileSync(file, JSON.stringify(data))
+				fs.writeFileSync(file, '[]')
 				return res.status(204).send('')
 			}
 		}
