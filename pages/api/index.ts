@@ -5,7 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
 	try {
 		const path = 'development' !== process.env.NODE_ENV
-			? 'https://faq-bot.vercel.app/data/questions.txt' : 'public/data/questions.txt'
+			? 'data/questions.txt' : 'public/data/questions.txt'
 
 		const data: IQuestion[] = JSON.parse(fs.readFileSync(path, 'utf8'))
 		const body: IQuestion = req.body
